@@ -1,5 +1,7 @@
 from numpy import * 
 import operator
+import matplotlib
+import matplotlib.pyplot as plt
 
 def createDataSet():
 	group = array([[1.0,1.1],[1.0,1.0],[0,0],[0,0.1]])
@@ -22,16 +24,23 @@ def classify0(inX, dataSet, labels, k):
 	sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
 	return sortedClassCount[0][0]
 	
-	def file2matrix(filename):
-		fr = open(filename)
-		arrayOLines = fr.readlines()
-		numberOfLines = len(arrayOLines)
-		returnMat = zeros((numberOfLines,3))
-		classLabelVector = []
-		for line in arrayOLines:
-			line = line.strip()
-			listFromLine = line.split('\t')
-			returnMat[index,:] = listFromLine[0:3]
-			classLabelVector.append(int(listFromLine[-1]))
-			index +=1
-		return returnMat,classLabelVector
+def file2matrix(filename):
+	fr = open(filename)
+	arrayOLines = fr.readlines()
+	numberOfLines = len(arrayOLines)
+	returnMat = zeros((numberOfLines,3))
+	classLabelVector = []
+	index = 0
+	for line in arrayOLines:
+		line = line.strip()
+		listFromLine = line.split('\t')
+		returnMat[index,:] = listFromLine[0:3]
+		classLabelVector.append(int(listFromLine[-1]))
+		index +=1
+	return returnMat,classLabelVector
+	
+datingDataMat,datingLabels = file2matrix('datingTestSet2.txt')
+fig = plt.figure()
+ax = fig.add_subplot(111)
+ax.scatter(datingDataMat[:,1],datingDataMat[:,2])
+plt.show()
