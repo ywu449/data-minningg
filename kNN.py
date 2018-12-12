@@ -29,4 +29,9 @@ def classify0(inX, dataSet, labels, k):
 		returnMat = zeros((numberOfLines,3))
 		classLabelVector = []
 		for line in arrayOLines:
-			line = 
+			line = line.strip()
+			listFromLine = line.split('\t')
+			returnMat[index,:] = listFromLine[0:3]
+			classLabelVector.append(int(listFromLine[-1]))
+			index +=1
+		return returnMat,classLabelVector
