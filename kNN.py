@@ -1,4 +1,5 @@
 from numpy import * 
+from os import listdir
 import operator
 import matplotlib
 import matplotlib.pyplot as plt
@@ -53,3 +54,14 @@ def img2vector(filename):
 		for j in range(32):
 			returnVect[0,32*i+j] = int(lineStr[j])
 	return returnVect
+
+def handwritingClassTest():
+	hwLabels = []
+	trainingFileList = listdir('trainingDigits')
+	m = len(trainingFileList)
+	trainingMat = zeros((m,1024))
+	for i in range(m):
+		fileNameStr = trainingFileList[i]
+		fileStr = fileNameStr.spilt('.')[0]
+		classNumStr = int(fileStr.split('_')[0])
+		hwLabels.append(classNumStr)
