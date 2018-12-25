@@ -60,23 +60,28 @@ def handwritingClassTest():
 	trainingFileList = listdir('trainingDigits')
 	m = len(trainingFileList)
 	trainingMat = zeros((m,1024))
+	#print ("m is: %d" %m)
 	for i in range(m):
 		fileNameStr = trainingFileList[i]
-		fileStr = fileNameStr.spilt('.')[0]
+		print ("fileNameStr is: %s" %fileNameStr)
+		fileStr = fileNameStr.split('.')[0]
 		classNumStr = int(fileStr.split('_')[0])
+		#print ("classNumStr is: %d" %classNumStr)
 		hwLabels.append(classNumStr)
-		trainingMat[i,:] = img2vector('trainingDigits/%s' %fileNameStr)
-		testFileList = listdir('testDigits')
-		errorCount = 0.0
-		mTest = len(testFileList)
-		for i in range(mTest):
-			fileNameStr = testFileList[i]
-			fileStr = fileNameStr.spilt('.')[0]
-			classNumStr = int(fileStr.split('_')[0])
-			vectorUnderTest = img2vector('testDigits/%s' %fileNameStr)
-			classifierResult = classify0(vectorUnderTest, trainingMat, hwzlabels, 3)
-			print "the classifier came back with: %d, the real answer is: %d" %(classifierResult, classNumStr)
-			if(classifierResult != classNumStr):
-				errorCount += 1.0
-		print "\n the total number of error is: %d" %errorCount
-		print "\n the total error rate is: %f" %(errorCount/float(mTest))
+		trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
+	testFileList = listdir('testDigits')
+	errorCount = 0.0
+	mTest = len(testFileList)
+	for i in range(mTest):
+		fileNameStr = testFileList[i]
+		fileStr = fileNameStr.split('.')[0]
+		classNumStr = int(fileStr.split('_')[0])
+		vectorUnderTest = img2vector('testDigits/%s' % fileNameStr)
+		#print(hwLabels)
+		classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)
+		print ("the classifier came back with %d, the real answer is %d" % (classifierResult, classNumStr))
+		#print (" the classifier came back with: " +  classifierResult + "the real answer is: " + classNumStr)
+		if(classifierResult != classNumStr):
+			errorCount += 1.0
+	print ("\n the total number of error is: %d" % errorCount)
+	print ("\n the total error rate is: %f" % (errorCount/float(mTest)))
