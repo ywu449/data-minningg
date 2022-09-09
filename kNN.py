@@ -44,7 +44,7 @@ def file2matrix(filename):
 # fig = plt.figure()
 # ax = fig.add_subplot(111)
 # ax.scatter(datingDataMat[:,1],datingDataMat[:,2])
-# plt.show()
+# plt.show() rrrr
 
 def img2vector(filename):
 	returnVect = zeros((1,1024))
